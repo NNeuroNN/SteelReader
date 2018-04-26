@@ -9,19 +9,19 @@
     <Grid x:Name="MainGrid" MinWidth="750" MinHeight="500">
         <DockPanel x:Name="MainPanel" MinWidth="750" MinHeight="500">
             <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="32" DockPanel.Dock="Top" Background="#FFFDFFE5">
-                <Button x:Name="OpenBtn">
+                <Button x:Name="OpenBtn" Click="OpenBtn_Click">
                     <DockPanel>
-                        <Image Source="D:\Projects\SteelReader\SteelReader\SteelReader\SteelReader\img\open-folder-with-document.png" Width="32" Height="26"/>
+                        <Image Source="img\open-folder-with-document.png" Width="32" Height="26"/>
                     </DockPanel>
                 </Button>
                 <Button x:Name="EraseBtn">
                     <DockPanel>
-                        <Image Source="D:\Projects\SteelReader\SteelReader\SteelReader\SteelReader\img\delete-button.png" Width="32" Height="26"/>
+                        <Image Source="img\delete-button.png" Width="32" Height="26"/>
                     </DockPanel>
                 </Button>
                 <Button x:Name="ImportToWordBtn">
                     <DockPanel>
-                        <Image Source="D:\Projects\SteelReader\SteelReader\SteelReader\SteelReader\img\microsoft-word-logo.png" Width="32" Height="26"/>
+                        <Image Source="img\microsoft-word-logo.png" Width="32" Height="26"/>
                     </DockPanel>
                 </Button>
             </Menu>

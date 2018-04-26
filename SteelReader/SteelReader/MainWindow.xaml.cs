@@ -58,19 +58,20 @@ namespace SteelReader
             }
             return str;
         }
+
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
             Open();
-          //var pdf =  AccessPDFcs.GetPdf("");
-          //  if (pdf != null) { }
-          //  foreach (var i in pdf.Pages().GetAnnots())
-          //  {
-          //      try
-          //      {
-          //          AnnotationTextBox.Text += i.GetAnnotItem(PdfName.CONTENTS).ToUnicodeString() + "\n";
-          //      }
-          //      catch(Exception){ }
-          //  }
+            //var pdf =  AccessPDFcs.GetPdf("");
+            //  if (pdf != null) { }
+            //  foreach (var i in pdf.Pages().GetAnnots())
+            //  {
+            //      try
+            //      {
+            //          AnnotationTextBox.Text += i.GetAnnotItem(PdfName.CONTENTS).ToUnicodeString() + "\n";
+            //      }
+            //      catch(Exception){ }
+            //  }
         }
     }
 }
