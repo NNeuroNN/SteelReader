@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace SteelReader
         public MainWindow()
         {
             InitializeComponent();
+        }
+        public string Open() {
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter =" PDF Files | *.PDF";
+            ofd.Multiselect = true;
+            if (ofd.ShowDialog().ToString().Equals("OK"))
+            { }
+                
+                return "";
         }
     }
 }
