@@ -14,12 +14,12 @@
                         <Image Source="img\open-folder-with-document.png" Width="32" Height="26"/>
                     </DockPanel>
                 </Button>
-                <Button x:Name="EraseBtn">
+                <Button x:Name="EraseBtn" Click="EraseBtn_Click">
                     <DockPanel>
                         <Image Source="img\delete-button.png" Width="32" Height="26"/>
                     </DockPanel>
                 </Button>
-                <Button x:Name="ImportToWordBtn">
+                <Button x:Name="ImportToWordBtn" Click="ImportToWordBtn_Click">
                     <DockPanel>
                         <Image Source="img\microsoft-word-logo.png" Width="32" Height="26"/>
                     </DockPanel>
