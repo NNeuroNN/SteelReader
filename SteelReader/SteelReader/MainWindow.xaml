@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SteelReader"
         mc:Ignorable="d"
-        Title="MainWindow" MinWidth="800" MinHeight="600" HorizontalAlignment="Left" VerticalAlignment="Top">
+        Title="SteelReader" MinWidth="800" MinHeight="600" HorizontalAlignment="Left" VerticalAlignment="Top" Icon="communication.ico">
     <Grid x:Name="MainGrid" MinWidth="750" MinHeight="500">
-        <DockPanel x:Name="MainPanel" MinWidth="750" MinHeight="500" Grid.Column="2">
-            <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="32" DockPanel.Dock="Top" Width="760" Background="#FFFDFFE5">
+        <DockPanel x:Name="MainPanel" MinWidth="750" MinHeight="500">
+            <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="32" DockPanel.Dock="Top" Background="#FFFDFFE5">
                 <Button x:Name="OpenBtn">
                     <DockPanel>
                         <Image Source="D:\Projects\SteelReader\SteelReader\SteelReader\SteelReader\img\open-folder-with-document.png" Width="32" Height="26"/>
@@ -25,12 +25,21 @@
                     </DockPanel>
                 </Button>
             </Menu>
-            <ListBox x:Name="PdfListBox" Background="#FFB92323" MinWidth="200" MinHeight="350" Margin="35,0,0,0" VerticalContentAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch">
-                <ListBoxItem >
-                    
+            <ProgressBar Height="16" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" MinWidth="300" MinHeight="16" MaxWidth="800" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <ListBox x:Name="PdfListBox" Background="#FFB92323" MinWidth="200" MinHeight="350" Margin="35,50" VerticalContentAlignment="Top">
+                <ListBoxItem>
+                    <ListBoxItem Background="LightCoral" Foreground="Red"
+
+             FontFamily="Verdana" FontSize="12" FontWeight="Bold">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Coffie"></TextBlock>
+                            <Image Source="img/microsoft-word-logo.png" Height="30"></Image>
+                        </StackPanel>
+
+                    </ListBoxItem>
                 </ListBoxItem>
             </ListBox>
-            <TextBox x:Name="AnnotationTextBox" TextWrapping="Wrap" Text="TextBox" Background="#FFE8CD23" MinWidth="400" MinHeight="350" Margin="35,0" DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="AnnotationTextBox" TextWrapping="Wrap" Background="#FFE8CD23" MinWidth="400" MinHeight="350" Margin="35,50" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
         </DockPanel>
 
     </Grid>
