@@ -110,10 +110,17 @@ namespace SteelReader
 
             //Add Content
 
-
+            Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
+            var Range = WordPara.Range;
+           // WordPara.AL = Word.WdHorizontalLineAlignment.wdHorizontalLineAlignCenter;
+           
+            Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+            Range.Font.Size = 14;
+           
+            WordPara.Range.Text += "Список замечаний по Договору №____ \n \n";
             for (int i = 0; i < Annotations.Count; i++)
             {
-                Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
+                
                 Word.Table WordTable = WordPara.Range.Tables.Add(WordPara.Range, 1, 3);
                 WordTable.Borders.Enable = 1;
                 WordTable.Borders.InsideColor = Word.WdColor.wdColorBlack;
