@@ -72,6 +72,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,7 +99,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="img\delete-button.png" />
     <Resource Include="img\microsoft-word-logo.png" />
