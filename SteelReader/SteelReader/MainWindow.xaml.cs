@@ -89,6 +89,7 @@ namespace SteelReader
 
             }
             else { }
+            ExportWord();
         }
 
         private void EraseBtn_Click(object sender, RoutedEventArgs e)
@@ -101,7 +102,7 @@ namespace SteelReader
             //Creation
             Word.Application WordApp = new Word.Application();
             WordApp.Visible = true;
-            WordApp.WindowState = Word.WdWindowState.wdWindowStateNormal;
+            WordApp.WindowState = Word.WdWindowState.wdWindowStateMaximize;
 
             // Create Document 
 
@@ -109,15 +110,19 @@ namespace SteelReader
 
             //Add Content
 
-            Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
-            Word.Table WordTable =  WordPara.Range.Tables.Add(WordPara.Range,1, 3);
-            WordTable.Borders.Enable = 1;
-            WordTable.Borders.InsideColor = Word.WdColor.wdColorRed;
-            WordTable.Columns[1].Cells[1].Range.Text = "1";
-            WordTable.Columns[2].Cells[1].Range.Text = "2";
-            WordTable.Columns[3].Cells[1].Range.Text = "3";
 
+            for (int i = 0; i < Annotations.Count; i++)
+            {
+                Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
+                Word.Table WordTable = WordPara.Range.Tables.Add(WordPara.Range, 1, 3);
+                WordTable.Borders.Enable = 1;
+                WordTable.Borders.InsideColor = Word.WdColor.wdColorBlack;
+                WordTable.Columns[1].Cells[i+1].Range.Text = Annotations.ToArray()[i].Author;
+                WordTable.Columns[2].Cells[i+1].Range.Text = Annotations.ToArray()[i].ADate;
+                WordTable.Columns[3].Cells[i+1].Range.Text = Annotations.ToArray()[i].AContent;
+            }
 
+            
             WordDoc.SaveAs2("Word.docx"); 
           
 

@@ -9,8 +9,6 @@ namespace SteelReader
     static class AccessPDFcs
     {
 
-        
-
         static public PdfReader GetPdf(string path) {
             return new PdfReader(path);
         }
@@ -65,7 +63,10 @@ namespace SteelReader
             {
                 try
                 {
-                    list.Add(new EzAnnotation { ADate = " ",
+                    var date = i.GetAnnotItem(PdfName.CREATIONDATE).ToUnicodeString();
+                    string str ="Замечание от "+ date.Substring(2, 4)+"/"+ date.Substring(6, 2) + "/" + date.Substring(8, 2) + "   " + date.Substring(10, 2) + ":" + date.Substring(12, 2) ;
+
+                    list.Add(new EzAnnotation { ADate = str,
                                                 AContent = i.GetAnnotItem(PdfName.CONTENTS).ToUnicodeString(),
                                                 Author = i.GetAnnotItem(PdfName.T).ToUnicodeString()
                     }); 
@@ -78,8 +79,8 @@ namespace SteelReader
     }
     public class EzAnnotation
     {
-      public  string ADate;
-       public string Author;
+     public  string ADate;
+     public string Author;
      public   string AContent;
 
     }
