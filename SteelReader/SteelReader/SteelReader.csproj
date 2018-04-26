@@ -93,5 +93,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="img\delete-button.png" />
+    <Resource Include="img\microsoft-word-logo.png" />
+    <Resource Include="img\minus-sign-inside-a-black-rounded-square-shape.png" />
+    <Resource Include="img\open-folder-with-document.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
