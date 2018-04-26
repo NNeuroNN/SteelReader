@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using iTextSharp.text.pdf;
+using Word = Microsoft.Office.Interop.Word;
 namespace SteelReader
 {
     /// <summary>
@@ -26,6 +27,9 @@ namespace SteelReader
             InitializeComponent();
         }
         Dictionary<string,string> pdfPathes = new Dictionary<string,string>();
+
+        List<EzAnnotation> Annotations = new List<EzAnnotation>();
+
 
         public void Open() {
         
@@ -47,6 +51,7 @@ namespace SteelReader
 
 
         }
+
         public static string getName(string str) {
             int lastChar=0;
             for (int i = str.Length-1; i > 0; i--) {
@@ -59,19 +64,57 @@ namespace SteelReader
             return str;
         }
 
+        
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
             Open();
-            //var pdf =  AccessPDFcs.GetPdf("");
-            //  if (pdf != null) { }
-            //  foreach (var i in pdf.Pages().GetAnnots())
-            //  {
-            //      try
-            //      {
-            //          AnnotationTextBox.Text += i.GetAnnotItem(PdfName.CONTENTS).ToUnicodeString() + "\n";
-            //      }
-            //      catch(Exception){ }
-            //  }
+          
+        }
+
+        private void ImportToWordBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (pdfPathes != null) {
+                foreach (var i in pdfPathes) {
+
+                    Annotations.AddRange(AccessPDFcs.GetPdf(i.Key).ToAnnotList());
+                }
+
+            }
+            else { }
+        }
+
+        private void EraseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ExportWord();
+        }
+
+        private void ExportWord()
+        { 
+            //Creation
+            Word.Application WordApp = new Word.Application();
+            WordApp.Visible = true;
+            WordApp.WindowState = Word.WdWindowState.wdWindowStateNormal;
+
+            // Create Document 
+
+            Word.Document WordDoc = WordApp.Documents.Add();
+
+            //Add Content
+
+            Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
+            Word.Table WordTable =  WordPara.Range.Tables.Add(WordPara.Range,1, 3);
+            WordTable.Borders.Enable = 1;
+            WordTable.Borders.InsideColor = Word.WdColor.wdColorRed;
+            WordTable.Columns[1].Cells[1].Range.Text = "1";
+            WordTable.Columns[2].Cells[1].Range.Text = "2";
+            WordTable.Columns[3].Cells[1].Range.Text = "3";
+
+
+            WordDoc.SaveAs2("Word.docx"); 
+          
+
         }
     }
+
+  
 }

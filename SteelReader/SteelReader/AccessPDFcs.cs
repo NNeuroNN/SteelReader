@@ -28,14 +28,18 @@ namespace SteelReader
             List<PdfDictionary> list = new List<PdfDictionary>();
             foreach (var dict in dicts)
             {
-                PdfArray annotAray = dict.GetAsArray(PdfName.ANNOTS);
-                for (int i = 0; i < annotAray.Length; i++) {
-                    try
+                try
+                {
+                    PdfArray annotAray = dict.GetAsArray(PdfName.ANNOTS);
+                    for (int i = 0; i < annotAray.Length; i++)
                     {
+
                         list.Add(annotAray.GetAsDict(i));
                     }
-                    catch (Exception) { }
                 }
+
+                catch (Exception) { }
+                
             }
          
             return list;
@@ -49,5 +53,34 @@ namespace SteelReader
             catch (Exception) { }
             return new PdfString("Неудача");
         }
+
+        public static List<EzAnnotation> ToAnnotList(this PdfReader pdf) {
+
+            List<EzAnnotation> list = new List<EzAnnotation>();
+
+
+          
+             if (pdf != null) { }
+            foreach (var i in pdf.Pages().GetAnnots())
+            {
+                try
+                {
+                    list.Add(new EzAnnotation { ADate = " ",
+                                                AContent = i.GetAnnotItem(PdfName.CONTENTS).ToUnicodeString(),
+                                                Author = i.GetAnnotItem(PdfName.T).ToUnicodeString()
+                    }); 
+                }
+                catch (Exception) { }
+            }
+
+            return list;
+        }
+    }
+    public class EzAnnotation
+    {
+      public  string ADate;
+       public string Author;
+     public   string AContent;
+
     }
 }
