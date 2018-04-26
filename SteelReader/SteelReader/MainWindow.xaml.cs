@@ -21,9 +21,14 @@ namespace SteelReader
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DateTime downTime;
+        private object downSender;
+
         public MainWindow()
         {
+          
             InitializeComponent();
+            PdfListBox.ItemsSource = pdfPathes;
         }
         Dictionary<string,string> pdfPathes = new Dictionary<string,string>();
 
@@ -40,10 +45,13 @@ namespace SteelReader
                
                 foreach (var i in ofd.FileNames) {
                     pdfPathes.Add(i, getName(i));
-                
+                    PdfListBox.Items.Refresh();
+                   // PdfListBox.Items.Add(pdfPathes[i]);
+                  //  PdfListBox.Items.Clear();
+                    
                 }
             }
-          
+            
 
 
         }
@@ -72,6 +80,40 @@ namespace SteelReader
             //      }
             //      catch(Exception){ }
             //  }
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.downSender = sender;
+                this.downTime = DateTime.Now;
+            }
+        }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Released &&
+           sender == this.downSender)
+            {
+                TimeSpan timeSinceDown = DateTime.Now - this.downTime;
+                if (timeSinceDown.TotalMilliseconds < 500)
+                {
+
+                    var id = (sender as Image).Tag.ToString();
+                    // AnnotationTextBox.Text += (sender as Image).Tag.ToString();
+
+
+                    pdfPathes.Remove(id);
+                    PdfListBox.Items.Refresh();
+
+                    //if (PdfListBox.SelectedItem == null) return;
+                    //var p = PdfListBox.SelectedItem;
+                    //pdfPathes.Remove();
+                    //PdfListBox.Items.Remove(p);
+                    // Do click
+                }
+            }
         }
     }
 }
