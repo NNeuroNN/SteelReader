@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using iTextSharp.text.pdf;
 namespace SteelReader
 {
     /// <summary>
@@ -25,15 +25,52 @@ namespace SteelReader
         {
             InitializeComponent();
         }
-        public string Open() {
+        Dictionary<string,string> pdfPathes = new Dictionary<string,string>();
 
+        public void Open() {
+        
             OpenFileDialog ofd = new OpenFileDialog();
+         
             ofd.Filter =" PDF Files | *.PDF";
+          
             ofd.Multiselect = true;
-            if (ofd.ShowDialog().ToString().Equals("OK"))
-            { }
+          
+            if (ofd.ShowDialog() != null)
+            {
+               
+                foreach (var i in ofd.FileNames) {
+                    pdfPathes.Add(i, getName(i));
                 
-                return "";
+                }
+            }
+          
+
+
+        }
+        public static string getName(string str) {
+            int lastChar=0;
+            for (int i = str.Length-1; i > 0; i--) {
+                if(str[i]== '\\' )  {
+                    lastChar = i+1;
+                    return str.Substring(lastChar);
+                }
+               
+            }
+            return str;
+        }
+        private void OpenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Open();
+          //var pdf =  AccessPDFcs.GetPdf("");
+          //  if (pdf != null) { }
+          //  foreach (var i in pdf.Pages().GetAnnots())
+          //  {
+          //      try
+          //      {
+          //          AnnotationTextBox.Text += i.GetAnnotItem(PdfName.CONTENTS).ToUnicodeString() + "\n";
+          //      }
+          //      catch(Exception){ }
+          //  }
         }
     }
 }
