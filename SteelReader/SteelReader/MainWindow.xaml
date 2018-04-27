@@ -6,42 +6,51 @@
         xmlns:local="clr-namespace:SteelReader"
         mc:Ignorable="d"
         Title="SteelReader" MinWidth="800" MinHeight="600" HorizontalAlignment="Left" VerticalAlignment="Top" Icon="communication.ico">
-    <Grid x:Name="MainGrid" MinWidth="750" MinHeight="500">
-        <DockPanel x:Name="MainPanel" MinWidth="750" MinHeight="500" Background="#FFFFDD6A">
-            <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="40" DockPanel.Dock="Top" Background="#FFFDFFE5">
-                <Button x:Name="OpenBtn" Click="OpenBtn_Click">
-                    <DockPanel>
-                        <Image Source="img\add-page.png" Width="32" Height="32
-                               "/>
-                    </DockPanel>
-                </Button>
-                <Button x:Name="EraseBtn" Click="EraseBtn_Click">
-                    <DockPanel>
-                        <Image Source="img\erasing-file.png" Width="32" Height="32"/>
-                    </DockPanel>
-                </Button>
-                <Button x:Name="ImportToWordBtn" Click="ImportToWordBtn_Click">
-                    <DockPanel>
-                        <Image Source="img\docx-file-format-symbol.png" Width="32" Height="32"/>
-                    </DockPanel>
-                </Button>
-            </Menu>
-            <ListBox x:Name="PdfListBox"  Background="White" MinWidth="200" MinHeight="350" Margin="35,50" VerticalContentAlignment="Top" HorizontalAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Visible" Width="200">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=Value}" />
-                            <Separator></Separator>
-                            <Image  Source="img/delete-button.png" Width="16" Height="16" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp" Tag="{Binding Path=Key}" HorizontalAlignment="Right" Margin="0"/>
+    <Grid x:Name="MainGrid" MinWidth="750" MinHeight="500" Background="#FF93FFB1">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0,25*"></ColumnDefinition>
+            <ColumnDefinition Width="0,05*"></ColumnDefinition>
+            <ColumnDefinition Width="0,50*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button x:Name="PdfScreenBtn" Content="Button" VerticalAlignment="Bottom" Width="75" Margin="0,20,120,20" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-            <WebBrowser x:Name="PdfBrowser" MinWidth="400" MinHeight="350" Margin="35,50" DockPanel.Dock="Right"/>
-            <TextBox x:Name="AnnotationTextBox" TextWrapping="Wrap" Background="White" MinWidth="10" MinHeight="10" Margin="35,50,35,162" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="10" Height="10"/>
-        </DockPanel>
+        <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="40" Background="#FFC2FFC2" Grid.ColumnSpan="3">
+            <Button x:Name="OpenBtn" Click="OpenBtn_Click">
+                <DockPanel>
+                    <Image Source="img\add-page.png" Width="32" Height="32                                "/>
+                </DockPanel>
+            </Button>
+            <Button x:Name="EraseBtn" Click="EraseBtn_Click">
+                <DockPanel>
+                    <Image Source="img\erasing-file.png" Width="32" Height="32"/>
+                </DockPanel>
+            </Button>
+            <Button x:Name="ImportToWordBtn" Click="ImportToWordBtn_Click">
+                <DockPanel>
+                    <Image Source="img\docx-file-format-symbol.png" Width="32" Height="32"/>
+                </DockPanel>
+            </Button>
+            <Button x:Name="ImportToExcelBtn" Background="Red" Height="36" Width="36"/>
+        </Menu>
+        <ListBox x:Name="PdfListBox"  Background="White" MinWidth="200" MinHeight="350" Margin="0,40,0,0" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Visible" Grid.RowSpan="3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Value}" />
+                        <Separator/>
+                        <Image  Source="" Width="16" Height="16" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp" Tag="{Binding Key}" HorizontalAlignment="Right" Margin="0"/>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox x:Name="EraseHelperListBox" Grid.Column="1" Grid.RowSpan="3" Margin="0,40,0,0"/>
+        <Button x:Name="PdfScreenBtn" Content="Button" VerticalAlignment="Top" Width="36" HorizontalAlignment="Right" Background="Red" Height="36" Panel.ZIndex="1" RenderTransformOrigin="0.438,-3.188" FlowDirection="RightToLeft" HorizontalContentAlignment="Center" Margin="0" Grid.Column="3"/>
+        <WebBrowser x:Name="PdfBrowser" MinWidth="400" MinHeight="350" Margin="0,40,0,0" Grid.RowSpan="3" Grid.Column="2"/>
 
     </Grid>
 </Window>
