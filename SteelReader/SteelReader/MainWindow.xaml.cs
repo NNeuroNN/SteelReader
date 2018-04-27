@@ -51,13 +51,13 @@ namespace SteelReader
         /// Выбор PDF Файлов,заполнение списка "PdfPathes",обновление контейнера "PdfListBox"
         /// </summary>
         public void Open() {
-        
+
             OpenFileDialog ofd = new OpenFileDialog();
-         
+
             ofd.Filter =" PDF Files | *.PDF";
-          
+
             ofd.Multiselect = true;
-          
+
             if (ofd.ShowDialog() != null)
             {
                 foreach (var i in ofd.FileNames) {
@@ -74,7 +74,7 @@ namespace SteelReader
                     Uri iuri = new Uri(pth, UriKind.Absolute);
                     PdfBrowser.Navigate(iuri);
 
-                  
+
                 }
             }
         }
@@ -117,9 +117,10 @@ namespace SteelReader
                 else
                     MessageBox.Show("В выбраных файлах не было найдено комментариев");
             }
-            else { MessageBox.Show("Список Пдф пуст, выберите документы"); }
-           
+            else { MessageBox.Show(messageBoxText:"Список документов пуст, выберите документы",caption:"Ошибка!"); }
+
         }
+
         /// <summary >
         /// Обработчик события нажатия на кнопку "Очистить"
         /// </summary>
@@ -142,7 +143,7 @@ namespace SteelReader
             WordApp.Visible = true;
             WordApp.WindowState = Word.WdWindowState.wdWindowStateMaximize;
 
-            // Create Document 
+            // Create Document
 
             Word.Document WordDoc = WordApp.Documents.Add();
 
@@ -150,8 +151,8 @@ namespace SteelReader
 
             Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
             var Range = WordPara.Range;
-          
-           
+
+
             Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             Range.Font.Size = 14;
 
@@ -162,33 +163,33 @@ namespace SteelReader
             {
 
                var Tab= WordPara.Range.Tables.Add(WordPara.Range, 1, 4);
-            
+
 
                 Tab.Borders.Enable = 1;
                 Tab.Borders.InsideColor = Word.WdColor.wdColorBlack;
-           
+
                 Tab.Columns[1].Cells[1].Range.Text = ind.ToString();
                 Tab.Columns[2].Cells[1].Range.Text = Annotations.ToArray()[i].Author;
                 Tab.Columns[3].Cells[1].Range.Text = Annotations.ToArray()[i].ADate;
                 Tab.Columns[4].Cells[1].Range.Text = Annotations.ToArray()[i].AContent;
-                
-              
+
+
                 WordPara.Range.Text +=ind.ToString()+ ")Выполнено:  \n\n";
                 Tab.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
                 ind++;
             }
-       
-         
-          
+
+
+
 
         }
 
         /// <summary >
         /// Вспомогательный обработчик клика по элементу списка ListBox
         /// </summary>
-        /// 
+        ///
 
-        
+
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -227,14 +228,25 @@ namespace SteelReader
             }
         }
 
+        private void PdfScreenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (PdfBrowser.Source!=null)
+            {
+                PdfWindow win = new PdfWindow(PdfBrowser.Source);
+                win.Show();
+            }
+            else { MessageBox.Show(messageBoxText:"Выберите Документ!",caption:"Ошибка!");
+                Open();
+              }}
+
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
             for (int i = 0; i < pdfPathes.Count; i++)
             {
                 var id = (sender as Image).Tag.ToString();
-               
+
             }
-          
+
         }
 
         private void Image_MouseLeave(object sender, MouseEventArgs e)
@@ -244,8 +256,8 @@ namespace SteelReader
 
         private void PdfListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-          
-         
+
+
         }
 
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
@@ -260,5 +272,5 @@ namespace SteelReader
         }
     }
 
-  
+
 }
