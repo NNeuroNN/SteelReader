@@ -32,11 +32,19 @@ namespace SteelReader
             InitializeComponent();
             PdfListBox.ItemsSource = pdfPathes;
         }
+        /// <summary >
+        /// Пути к Пдф документам
+        /// </summary>
         Dictionary<string,string> pdfPathes = new Dictionary<string,string>();
 
+        /// <summary >
+        /// Комментарии в выбранных пдф документах
+        /// </summary>
         List<EzAnnotation> Annotations = new List<EzAnnotation>();
 
-
+        /// <summary >
+        /// Выбор PDF Файлов,заполнение списка "PdfPathes",обновление контейнера "PdfListBox"
+        /// </summary>
         public void Open() {
         
             OpenFileDialog ofd = new OpenFileDialog();
@@ -63,6 +71,9 @@ namespace SteelReader
 
         }
 
+        /// <summary >
+        /// Изъятие из полного пути название файла
+        /// </summary>
         public static string getName(string str) {
             int lastChar=0;
             for (int i = str.Length-1; i > 0; i--) {
@@ -82,26 +93,37 @@ namespace SteelReader
           
         }
 
+        /// <summary >
+        /// Проверка списка путей , заполнение списка аннотаций, вызов функции экспорта в Word
+        /// </summary>
         private void ImportToWordBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (pdfPathes != null) {
+            if (pdfPathes.Values.Count >0) {
+                Annotations.Clear();
                 foreach (var i in pdfPathes) {
 
                     Annotations.AddRange(AccessPDFcs.GetPdf(i.Key).ToAnnotList());
                 }
-
+                if (Annotations.Count > 0)
+                    ExportWord();
+                else
+                    MessageBox.Show("В выбраных файлах не было найдено комментариев");
             }
-            else { }
-            ExportWord();
+            else { MessageBox.Show("Список Пдф пуст, выберите документы"); }
+           
         }
 
         private void EraseBtn_Click(object sender, RoutedEventArgs e)
         {
-            ExportWord();
+           
         }
 
+        /// <summary >
+        /// Создание Файла .docx,заполнение его таблицами с аннотациями
+        /// </summary>
         private void ExportWord()
-        { 
+        {
+            int ind = 1;
             //Creation
             Word.Application WordApp = new Word.Application();
             WordApp.Visible = true;
@@ -115,29 +137,42 @@ namespace SteelReader
 
             Word.Paragraph WordPara = WordDoc.Paragraphs.Add();
             var Range = WordPara.Range;
-           // WordPara.AL = Word.WdHorizontalLineAlignment.wdHorizontalLineAlignCenter;
+          
            
             Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
             Range.Font.Size = 14;
-           
+
             WordPara.Range.Text += "Список замечаний по Договору №____ \n \n";
+
+
             for (int i = 0; i < Annotations.Count; i++)
             {
-                
-                Word.Table WordTable = WordPara.Range.Tables.Add(WordPara.Range, 1, 3);
-                WordTable.Borders.Enable = 1;
-                WordTable.Borders.InsideColor = Word.WdColor.wdColorBlack;
-                WordTable.Columns[1].Cells[i+1].Range.Text = Annotations.ToArray()[i].Author;
-                WordTable.Columns[2].Cells[i+1].Range.Text = Annotations.ToArray()[i].ADate;
-                WordTable.Columns[3].Cells[i+1].Range.Text = Annotations.ToArray()[i].AContent;
-            }
 
+               var Tab= WordPara.Range.Tables.Add(WordPara.Range, 1, 4);
             
-            WordDoc.SaveAs2("Word.docx"); 
+
+                Tab.Borders.Enable = 1;
+                Tab.Borders.InsideColor = Word.WdColor.wdColorBlack;
+           
+                Tab.Columns[1].Cells[1].Range.Text = ind.ToString();
+                Tab.Columns[2].Cells[1].Range.Text = Annotations.ToArray()[i].Author;
+                Tab.Columns[3].Cells[1].Range.Text = Annotations.ToArray()[i].ADate;
+                Tab.Columns[4].Cells[1].Range.Text = Annotations.ToArray()[i].AContent;
+                
+              
+                WordPara.Range.Text +=ind.ToString()+ ")Выполнено:  \n\n";
+                Tab.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
+                ind++;
+            }
+       
+         
           
 
         }
 
+        /// <summary >
+        /// Обработчик клика по удалению элемента списка пдф
+        /// </summary>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -147,6 +182,9 @@ namespace SteelReader
             }
         }
 
+        /// <summary >
+        /// Обработчик клика по удалению элемента списка пдф
+        /// </summary>
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Released &&

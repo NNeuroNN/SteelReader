@@ -8,11 +8,16 @@ namespace SteelReader
 {
     static class AccessPDFcs
     {
-
+        /// <summary >
+        /// Открытие PDF Файла
+        /// </summary>
         static public PdfReader GetPdf(string path) {
             return new PdfReader(path);
         }
 
+        /// <summary >
+        /// Разбиение PDF-Файла на страницы
+        /// </summary>
         static public List<PdfDictionary> Pages(this PdfReader pdf)
         {
             List<PdfDictionary> dict = new List<PdfDictionary>(); ;
@@ -21,7 +26,9 @@ namespace SteelReader
             }
             return dict;
         }
-
+        /// <summary >
+        /// Разбиение страницы на элементы
+        /// </summary>
         static public List<PdfDictionary> GetAnnots(this List<PdfDictionary> dicts) {
             List<PdfDictionary> list = new List<PdfDictionary>();
             foreach (var dict in dicts)
@@ -42,7 +49,9 @@ namespace SteelReader
          
             return list;
         }
-
+        /// <summary >
+        /// Получение нужного элемента
+        /// </summary>
         static public PdfString GetAnnotItem(this PdfDictionary dict, PdfName name) {
             try
             {
@@ -51,7 +60,9 @@ namespace SteelReader
             catch (Exception) { }
             return new PdfString("Неудача");
         }
-
+        /// <summary >
+        /// Заполнение списка комментариями из документа
+        /// </summary>
         public static List<EzAnnotation> ToAnnotList(this PdfReader pdf) {
 
             List<EzAnnotation> list = new List<EzAnnotation>();
