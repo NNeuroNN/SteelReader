@@ -34,7 +34,7 @@
                     <Image Source="img\docx-file-format-symbol.png" Width="32" Height="32"/>
                 </DockPanel>
             </Button>
-            <Button x:Name="ImportToExcelBtn" Background="Red" Height="36" Width="36"/>
+            <Button x:Name="ImportToExcelBtn" Background="{x:Null}" Height="36" Width="36"/>
         </Menu>
         <ListBox x:Name="PdfListBox"  Background="White" MinWidth="200" MinHeight="350" Margin="0,40,0,0" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Visible" Grid.RowSpan="3">
             <ListBox.ItemTemplate>
@@ -42,14 +42,19 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Value}" />
                         <Separator/>
-                        <Image  Source="" Width="16" Height="16" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp" Tag="{Binding Key}" HorizontalAlignment="Right" Margin="0"/>
+                        <Image  Source="/img/expand.png" Width="16" Height="16" MouseDown="Image_MouseDown" MouseUp="Image_MouseUp" Tag="{Binding Key}" HorizontalAlignment="Right" Margin="0"/>
 
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <ListBox x:Name="EraseHelperListBox" Grid.Column="1" Grid.RowSpan="3" Margin="0,40,0,0"/>
-        <Button x:Name="PdfScreenBtn" Content="Button" VerticalAlignment="Top" Width="36" HorizontalAlignment="Right" Background="Red" Height="36" Panel.ZIndex="1" RenderTransformOrigin="0.438,-3.188" FlowDirection="RightToLeft" HorizontalContentAlignment="Center" Margin="0" Grid.Column="3"/>
+
+        <Button x:Name="PdfScreenBtn"  VerticalAlignment="Top" Width="36" HorizontalAlignment="Right" Background="{x:Null}" Height="36" Panel.ZIndex="1" RenderTransformOrigin="0.438,-3.188" FlowDirection="RightToLeft" HorizontalContentAlignment="Center" Margin="0" Grid.Column="3" Click="PdfScreenBtn_Click">
+            <DockPanel>
+                <Image Source="img\expand.png" Width="32" Height="32"/>
+            </DockPanel>
+        </Button>
         <WebBrowser x:Name="PdfBrowser" MinWidth="400" MinHeight="350" Margin="0,40,0,0" Grid.RowSpan="3" Grid.Column="2"/>
 
     </Grid>

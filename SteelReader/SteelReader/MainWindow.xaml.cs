@@ -61,8 +61,7 @@ namespace SteelReader
                     }
                     catch (ArgumentException) { MessageBox.Show(i+", этот файл уже выбран!"); }
                     PdfListBox.Items.Refresh();
-                    // PdfListBox.Items.Add(pdfPathes[i]);
-                    //  PdfListBox.Items.Clear();
+                    
                     string pth = pdfPathes.Last().Key.ToString();
                     Uri iuri = new Uri(pth, UriKind.Absolute);
                     PdfBrowser.Navigate(iuri);
@@ -108,9 +107,10 @@ namespace SteelReader
                 else
                     MessageBox.Show("В выбраных файлах не было найдено комментариев");
             }
-            else { MessageBox.Show("Список Пдф пуст, выберите документы"); }
+            else { MessageBox.Show(messageBoxText:"Список документов пуст, выберите документы",caption:"Ошибка!"); }
            
         }
+
         /// <summary >
         /// Обработчик события нажатия на кнопку "Очистить"
         /// </summary>
@@ -210,6 +210,18 @@ namespace SteelReader
                     //PdfListBox.Items.Remove(p);
                     // Do click
                 }
+            }
+        }
+
+        private void PdfScreenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (PdfBrowser.Source!=null)
+            {
+                PdfWindow win = new PdfWindow(PdfBrowser.Source);
+                win.Show();
+            }
+            else { MessageBox.Show(messageBoxText:"Выберите Документ!",caption:"Ошибка!");
+                Open();
             }
         }
     }
