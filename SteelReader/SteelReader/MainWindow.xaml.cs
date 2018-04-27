@@ -28,7 +28,6 @@ namespace SteelReader
 
         public MainWindow()
         {
-          
             InitializeComponent();
             PdfListBox.ItemsSource = pdfPathes;
         }
@@ -55,7 +54,6 @@ namespace SteelReader
           
             if (ofd.ShowDialog() != null)
             {
-
                 foreach (var i in ofd.FileNames) {
                     pdfPathes.Add(i, getName(i));
                     PdfListBox.Items.Refresh();
@@ -66,9 +64,6 @@ namespace SteelReader
                     PdfBrowser.Navigate(iuri);
                 }
             }
-            
-
-
         }
 
         /// <summary >
@@ -81,16 +76,16 @@ namespace SteelReader
                     lastChar = i+1;
                     return str.Substring(lastChar);
                 }
-               
             }
             return str;
         }
 
-        
+        /// <summary >
+        /// Обработчик события нажатия на кнопку "Открыть"
+        /// </summary>
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
             Open();
-          
         }
 
         /// <summary >
@@ -112,14 +107,16 @@ namespace SteelReader
             else { MessageBox.Show("Список Пдф пуст, выберите документы"); }
            
         }
-
+        /// <summary >
+        /// Обработчик события нажатия на кнопку "Очистить"
+        /// </summary>
         private void EraseBtn_Click(object sender, RoutedEventArgs e)
         {
            
         }
 
         /// <summary >
-        /// Создание Файла .docx,заполнение его таблицами с аннотациями
+        /// Создание Файла .docx, заполнение его таблицами с аннотациями
         /// </summary>
         private void ExportWord()
         {
@@ -171,7 +168,7 @@ namespace SteelReader
         }
 
         /// <summary >
-        /// Обработчик клика по удалению элемента списка пдф
+        /// Вспомогательный обработчик клика по элементу списка ListBox
         /// </summary>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -183,7 +180,7 @@ namespace SteelReader
         }
 
         /// <summary >
-        /// Обработчик клика по удалению элемента списка пдф
+        /// Основной обработчик клика по иконке удаления элемента списка ListBox
         /// </summary>
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
