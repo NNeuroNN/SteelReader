@@ -55,7 +55,11 @@ namespace SteelReader
             if (ofd.ShowDialog() != null)
             {
                 foreach (var i in ofd.FileNames) {
-                    pdfPathes.Add(i, getName(i));
+                    try
+                    {
+                        pdfPathes.Add(i, getName(i));
+                    }
+                    catch (ArgumentException) { MessageBox.Show(i+", этот файл уже выбран!"); }
                     PdfListBox.Items.Refresh();
                     // PdfListBox.Items.Add(pdfPathes[i]);
                     //  PdfListBox.Items.Clear();
@@ -112,7 +116,9 @@ namespace SteelReader
         /// </summary>
         private void EraseBtn_Click(object sender, RoutedEventArgs e)
         {
-           
+            pdfPathes.Clear();
+            Annotations.Clear();
+            PdfListBox.Items.Refresh();
         }
 
         /// <summary >

@@ -7,21 +7,22 @@
         mc:Ignorable="d"
         Title="SteelReader" MinWidth="800" MinHeight="600" HorizontalAlignment="Left" VerticalAlignment="Top" Icon="communication.ico">
     <Grid x:Name="MainGrid" MinWidth="750" MinHeight="500">
-        <DockPanel x:Name="MainPanel" MinWidth="750" MinHeight="500" Background="#FFF5F4FD">
-            <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="32" DockPanel.Dock="Top" Background="#FFFDFFE5">
+        <DockPanel x:Name="MainPanel" MinWidth="750" MinHeight="500" Background="#FFFFDD6A">
+            <Menu x:Name="MainMenu" MinWidth="300" MinHeight="32" VerticalAlignment="Top" Height="40" DockPanel.Dock="Top" Background="#FFFDFFE5">
                 <Button x:Name="OpenBtn" Click="OpenBtn_Click">
                     <DockPanel>
-                        <Image Source="img\open-folder-with-document.png" Width="32" Height="26"/>
+                        <Image Source="img\add-page.png" Width="32" Height="32
+                               "/>
                     </DockPanel>
                 </Button>
                 <Button x:Name="EraseBtn" Click="EraseBtn_Click">
                     <DockPanel>
-                        <Image Source="img\delete-button.png" Width="32" Height="26"/>
+                        <Image Source="img\erasing-file.png" Width="32" Height="32"/>
                     </DockPanel>
                 </Button>
                 <Button x:Name="ImportToWordBtn" Click="ImportToWordBtn_Click">
                     <DockPanel>
-                        <Image Source="img\microsoft-word-logo.png" Width="32" Height="26"/>
+                        <Image Source="img\docx-file-format-symbol.png" Width="32" Height="32"/>
                     </DockPanel>
                 </Button>
             </Menu>
