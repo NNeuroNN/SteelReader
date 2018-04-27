@@ -30,7 +30,13 @@ namespace SteelReader
         {
             InitializeComponent();
             PdfListBox.ItemsSource = pdfPathes;
-        }
+            EraseHelperListBox.ItemsSource = pdfPathes;
+            try
+            {
+                PdfBrowser.Navigate(AppDomain.CurrentDomain.BaseDirectory + @"example.pdf");
+            }
+            catch (Exception) { PdfBrowser.NavigateToString(AppDomain.CurrentDomain.BaseDirectory + @"example.pdf"); }
+            }
         /// <summary >
         /// Пути к Пдф документам
         /// </summary>
@@ -61,11 +67,14 @@ namespace SteelReader
                     }
                     catch (ArgumentException) { MessageBox.Show(i+", этот файл уже выбран!"); }
                     PdfListBox.Items.Refresh();
+                    EraseHelperListBox.Items.Refresh();
                     // PdfListBox.Items.Add(pdfPathes[i]);
                     //  PdfListBox.Items.Clear();
                     string pth = pdfPathes.Last().Key.ToString();
                     Uri iuri = new Uri(pth, UriKind.Absolute);
                     PdfBrowser.Navigate(iuri);
+
+                  
                 }
             }
         }
@@ -119,6 +128,7 @@ namespace SteelReader
             pdfPathes.Clear();
             Annotations.Clear();
             PdfListBox.Items.Refresh();
+            EraseHelperListBox.Items.Refresh();
         }
 
         /// <summary >
@@ -176,6 +186,10 @@ namespace SteelReader
         /// <summary >
         /// Вспомогательный обработчик клика по элементу списка ListBox
         /// </summary>
+        /// 
+
+        
+
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -203,13 +217,45 @@ namespace SteelReader
 
                     pdfPathes.Remove(id);
                     PdfListBox.Items.Refresh();
-
+                    EraseHelperListBox.Items.Refresh();
                     //if (PdfListBox.SelectedItem == null) return;
                     //var p = PdfListBox.SelectedItem;
                     //pdfPathes.Remove();
                     //PdfListBox.Items.Remove(p);
                     // Do click
                 }
+            }
+        }
+
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        {
+            for (int i = 0; i < pdfPathes.Count; i++)
+            {
+                var id = (sender as Image).Tag.ToString();
+               
+            }
+          
+        }
+
+        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void PdfListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+          
+         
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                //MessageBox.Show("doubleclick");
+                var id = (sender as TextBlock).Tag.ToString();
+                Uri iuri = new Uri(id, UriKind.Absolute);
+                PdfBrowser.Navigate(iuri);
             }
         }
     }

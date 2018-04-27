@@ -143,5 +143,8 @@
     <Resource Include="img\docx-file-format-symbol.png" />
     <Resource Include="img\erasing-file.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\cancel.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
