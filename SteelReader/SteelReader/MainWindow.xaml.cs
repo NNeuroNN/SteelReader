@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using iTextSharp.text.pdf;
 using Word = Microsoft.Office.Interop.Word;
+using System.Web;
 namespace SteelReader
 {
     /// <summary>
@@ -46,13 +47,15 @@ namespace SteelReader
           
             if (ofd.ShowDialog() != null)
             {
-               
+
                 foreach (var i in ofd.FileNames) {
                     pdfPathes.Add(i, getName(i));
                     PdfListBox.Items.Refresh();
-                   // PdfListBox.Items.Add(pdfPathes[i]);
-                  //  PdfListBox.Items.Clear();
-                    
+                    // PdfListBox.Items.Add(pdfPathes[i]);
+                    //  PdfListBox.Items.Clear();
+                    string pth = pdfPathes.Last().Key.ToString();
+                    Uri iuri = new Uri(pth, UriKind.Absolute);
+                    PdfBrowser.Navigate(iuri);
                 }
             }
             
