@@ -157,29 +157,40 @@ namespace SteelReader
 
             WordPara.Range.Text += "Список замечаний по Договору №____ \n \n";
 
+            var Tab = WordPara.Range.Tables.Add(WordPara.Range, 1, 4);
+
+            Tab.Columns[1].Cells[1].Range.Text = "№";
+            Tab.Columns[1].Cells[1].Range.Bold = 1;
+            Tab.Columns[2].Cells[1].Range.Text = "";
+            Tab.Columns[2].Cells[1].Range.Bold = 1;
+            Tab.Columns[3].Cells[1].Range.Text = "";
+            Tab.Columns[3].Cells[1].Range.Bold = 1;
+            Tab.Columns[4].Cells[1].Range.Text = "";
+            Tab.Columns[4].Cells[1].Range.Bold = 1;
+
 
             for (int i = 0; i < Annotations.Count; i++)
             {
 
-               var Tab= WordPara.Range.Tables.Add(WordPara.Range, 1, 4);
-            
 
+
+                Tab.Tables.Add(WordPara.Range, 1, 4);
                 Tab.Borders.Enable = 1;
                 Tab.Borders.InsideColor = Word.WdColor.wdColorBlack;
            
-                Tab.Columns[1].Cells[1].Range.Text = ind.ToString();
-                Tab.Columns[2].Cells[1].Range.Text = Annotations.ToArray()[i].Author;
-                Tab.Columns[3].Cells[1].Range.Text = Annotations.ToArray()[i].ADate;
-                Tab.Columns[4].Cells[1].Range.Text = Annotations.ToArray()[i].AContent;
+                Tab.Columns[1].Cells[2+i].Range.Text = ind.ToString();
+                Tab.Columns[2].Cells[2 + i].Range.Text = Annotations.ToArray()[i].Author;
+                Tab.Columns[3].Cells[2 + i].Range.Text = Annotations.ToArray()[i].ADate;
+                Tab.Columns[4].Cells[2 + i].Range.Text = Annotations.ToArray()[i].AContent;
                 
               
-                WordPara.Range.Text +=ind.ToString()+ ")Выполнено:  \n\n";
-                Tab.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
+          
+               
                 ind++;
             }
-       
-         
-          
+            Tab.AutoFitBehavior(Word.WdAutoFitBehavior.wdAutoFitContent);
+
+
 
         }
 
@@ -256,6 +267,20 @@ namespace SteelReader
                 var id = (sender as TextBlock).Tag.ToString();
                 Uri iuri = new Uri(id, UriKind.Absolute);
                 PdfBrowser.Navigate(iuri);
+            }
+        }
+
+        private void PdfScreenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (PdfBrowser.Source != null)
+            {
+                PdfWindow win = new PdfWindow(PdfBrowser.Source);
+                win.Show();
+            }
+            else
+            {
+                MessageBox.Show(messageBoxText: "Выберите Документ!", caption: "Ошибка!");
+                Open();
             }
         }
     }
