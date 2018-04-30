@@ -108,10 +108,15 @@ namespace SteelReader
         {
             if (pdfPathes.Values.Count >0) {
                 Annotations.Clear();
-                foreach (var i in pdfPathes) {
+                try
+                {
+                    foreach (var i in pdfPathes) {
 
-                    Annotations.AddRange(AccessPDFcs.GetPdf(i.Key).ToAnnotList());
+                     Annotations.AddRange(AccessPDFcs.GetPdf(i.Key).ToAnnotList());
                 }
+
+                     }
+                    catch (ArgumentNullException) { }
                 if (Annotations.Count > 0)
                     ExportWord();
                 else
